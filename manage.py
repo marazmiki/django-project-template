@@ -6,7 +6,8 @@ import sys
 
 
 def get_cwd():
-    return os.path.dirname(__file__)
+    cwd = os.path.dirname(__file__)
+    return os.path.normpath(os.path.realpath(cwd))
 
 
 def get_extra_dirs():
@@ -14,7 +15,7 @@ def get_extra_dirs():
 
 
 def add_path(path):
-    sys.path.insert(0, os.path.normpath(os.path.realpath(os.path.join(get_cwd(),'src', path))))
+    sys.path.insert(0, os.path.normpath(os.path.join(get_cwd(),'src', path)))
 
 if __name__ == '__main__':
     for directory in get_extra_dirs():
