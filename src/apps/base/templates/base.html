@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    {% block metatags %}{% endblock metatags %}
+    {% block head_css %}{% endblock head_css %}{% block head_link %}{% endblock head_link %}{% block head_js %}{% endblock head_js %}
+</head>
+<body{% block body_attrs %}{% endblock body_attrs %} class="no-js">
+{% block content %}{% endblock %}
+</body>
+</html>
