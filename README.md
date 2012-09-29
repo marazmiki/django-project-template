@@ -8,7 +8,7 @@ Installation
 
 ::
 
-    $ django-admin.py startproject <project_name> --template=<foo> -epy,conf,md .
+    $ django-admin.py startproject <project_name> --template=https://github.com/downloads/marazmiki/django-project-template/django-project-template.tar.gz -epy,conf,md .
 
 
 
