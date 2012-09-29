@@ -133,3 +133,8 @@ LOGGING = {
 ##
 CONFIG_GEN_GENERATED_DIR = rel('')
 CONFIG_GEN_TEMPLATES_DIR = rel('src/project/templates/configs')
+
+try:
+    from settings_local import *
+except ImportError as e:
+    pass
