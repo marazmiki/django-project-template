@@ -8,6 +8,7 @@ Installation
 
 ::
 
-    $ django-admin.py startproject --template=<foo> -epy,conf
+    $ django-admin.py startproject <project_name> --template=<foo> -epy,conf,md .
+
 
 
