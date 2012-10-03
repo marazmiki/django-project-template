@@ -101,6 +101,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'django_config_gen',
+    'pipeline',
     'base',
 )
 
@@ -133,6 +134,8 @@ LOGGING = {
 ##
 CONFIG_GEN_GENERATED_DIR = rel('')
 CONFIG_GEN_TEMPLATES_DIR = rel('src/project/templates/configs')
+
+from settings.pipeline import *
 
 try:
     from settings_local import *
