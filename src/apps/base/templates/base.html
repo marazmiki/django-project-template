@@ -1,12 +1,15 @@
-<!DOCTYPE html>
+{% load compressed %}<!DOCTYPE html>
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
     <meta charset="utf-8">
     {% block metatags %}{% endblock metatags %}
+    {% compressed_css "all_in_one" %}
     {% block head_css %}{% endblock head_css %}{% block head_link %}{% endblock head_link %}{% block head_js %}{% endblock head_js %}
 </head>
 <body{% block body_attrs %}{% endblock body_attrs %} class="no-js">
+<script>(function(){try{ var b = document.getElementsByTagName('BODY')[0]; b.className = b.className.replace('no-js', ''); } catch(e){ }})();</script>
 {% block content %}{% endblock %}
+{% compressed_js "all_in_one" %}
 </body>
 </html>
