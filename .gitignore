@@ -2,4 +2,5 @@
 .idea
 *.pyc
 *.log
+django-project-settings.tgz
 settings_local.py
