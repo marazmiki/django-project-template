@@ -1,10 +1,10 @@
 #!/bin/bash
 
-FILENAME=django-project-template.tgz
+FILENAME=django-project-template.tar.gz
 
-tar -zcf django-project-template.tgz    \
-    --exclude=.git                      \
-    --exclude=*.pyc                     \
-    --exclude=$FILENAME                 \
-    --exclude=$0                        \
+tar -zcf $FILENAME              \
+    --exclude=.git              \
+    --exclude=*.pyc             \
+    --exclude=$FILENAME         \
+    --exclude=$0                \
     .
