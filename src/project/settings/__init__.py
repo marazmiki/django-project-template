@@ -150,9 +150,12 @@ LOGGING = {
 CONFIG_GEN_GENERATED_DIR = rel('')
 CONFIG_GEN_TEMPLATES_DIR = rel('src/project/templates/configs')
 
+LOGS_DIR = rel('logs/')
+PROJECT_ROOT = rel('')
+
 
 EFFECTIVE_USER = getpass.getuser()
-EFFECTIVE_GROUP = getpass.getpass()
+EFFECTIVE_GROUP = getpass.getuser()
 
 
 from settings.pipeline import *
