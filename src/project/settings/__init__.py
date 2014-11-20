@@ -11,7 +11,7 @@ import sys
 
 def rel(*x):
     current_dir = os.path.dirname(__file__)
-    project_dir = os.path.join(current_dir, '..', '..')
+    project_dir = os.path.join(current_dir, '..', '..', '..')
     return os.path.normpath(os.path.join(project_dir, *x))
 
 
