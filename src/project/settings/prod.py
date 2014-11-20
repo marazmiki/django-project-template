@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
-from project.settings import rel
+from project.settings import *    # NOQA
 import sys
 import warnings
 
