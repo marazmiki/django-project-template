@@ -1,69 +1,70 @@
 # coding: utf-8
-# Django settings for {{ project_name }} project.
 
-import os
+from __future__ import unicode_literals
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
 import getpass
+import os
+import sys
 
 
 def rel(*x):
-    x = ['..'] * 3 + list(x)
-    return os.path.normpath(os.path.join(os.path.dirname(__file__), *x))
+    current_dir = os.path.dirname(__file__)
+    project_dir = os.path.join(current_dir, '..', '..', '..')
+    return os.path.normpath(os.path.join(project_dir, *x))
 
 
-DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+def add_to_pythonpath(*args, **kwargs):
+    position = kwargs.get('position', 0)
+    for path in args:
+        if path in sys.path:
+            continue
+        if position < 0:
+            sys.path.append(path)
+        else:
+            sys.path.insert(position, path)
+
+
+def get_secret_key(filename='secret_key.txt'):
+    with open(rel(filename)) as fp:
+        return fp.read()
+
+
+add_to_pythonpath(
+    rel('src/apps'),
+    rel('src/project'),
+)
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '{{ project_name }}',
-        'USER': '{{ project_name }}',
-        'PASSWORD': '{{ project_name }}',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-
-##
-## Lozalization and internationalization
-##
-LANGUAGE_CODE = 'en-us'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
-TIME_ZONE = 'Asia/Novosibirsk'
-
-##
-## Handling static files settings
-##
-MEDIA_ROOT = rel('public/media/')
-MEDIA_URL = '/media/'
-
-STATIC_ROOT = rel('public/static/')
-STATIC_URL = '/static/'
+BASE_DIR = rel('')
+SECRET_KEY = get_secret_key()
 
 
-STATICFILES_DIRS = ()
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'base',
 )
 
-##
-## Templates settings
-##
-TEMPLATE_LOADERS =  (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -78,46 +79,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 TEMPLATE_DIRS = (
     rel('src/project/templates/'),
-)
-
-##
-## Project specified settings
-##
-
-SITE_ID = 1
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '{{ secret_key }}'
-
-# List of callables that know how to import templates from various sources.
-
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
-
-ROOT_URLCONF = 'project.urls'
-
-# Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'project.wsgi.application'
-
-
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'south',
-    'django_config_gen',
-    'pipeline',
-    'base',
 )
 
 LOGGING = {
@@ -144,23 +105,31 @@ LOGGING = {
     }
 }
 
-##
-## The django-config-gen settings
-##
-CONFIG_GEN_GENERATED_DIR = rel('')
-CONFIG_GEN_TEMPLATES_DIR = rel('src/project/templates/configs')
 
-LOGS_DIR = rel('logs/')
-PROJECT_ROOT = rel('')
 
+ROOT_URLCONF = 'project.urls'
+WSGI_APPLICATION = 'project.wsgi.application'
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.7/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+LANGUAGES = (
+    ('ru', 'Russian'),
+    ('en', 'English'),
+)
+
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+STATIC_URL = '/static/'
+STATIC_ROOT = rel('public/static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = rel('public/media')
 
 EFFECTIVE_USER = getpass.getuser()
 EFFECTIVE_GROUP = getpass.getuser()
-
-
-from settings.pipeline import *
-
-try:
-    from settings_local import *
-except ImportError as e:
-    pass
