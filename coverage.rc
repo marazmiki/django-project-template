@@ -1,5 +1,5 @@
 [run]
-source = img
+source = src
 branch = True
 
 [report]
